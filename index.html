@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Reviews Dropdown</title> 
+<link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+
+<h1 class="text-3xl font-bold text-emerald-700 mb-6">⭐ Reviews</h1>
+
+<!-- Reviews Container -->
+<div class="w-full max-w-3xl space-y-4" id="reviews-container">
+  <!-- Reviews will be injected here -->
+</div>
+
+<footer class="text-gray-600 text-sm mt-6">
+  &copy; 2025 Product Reviews. All rights reserved.
+</footer>
+
+<script>
+// Sample reviews
+const reviews = [
+  { name: "John Doe", profile: "https://randomuser.me/api/portraits/men/11.jpg", rating: 5, text: "Amazing product! Exceeded my expectations. Highly recommend to everyone." },
+  { name: "Jane Smith", profile: "https://randomuser.me/api/portraits/women/21.jpg", rating: 4, text: "Very good quality, but delivery took a bit longer than expected." },
+  { name: "Alex Johnson", profile: "https://randomuser.me/api/portraits/men/31.jpg", rating: 5, text: "Excellent! Customer service was very helpful and responsive." },
+  { name: "Emily Clark", profile: "https://randomuser.me/api/portraits/women/41.jpg", rating: 3, text: "Product is decent for the price. Could be improved in design." },
+  { name: "Michael Brown", profile: "https://randomuser.me/api/portraits/men/51.jpg", rating: 4, text: "Good product overall. Will buy again in the future." }
+];
+
+// Reference container
+const container = document.getElementById('reviews-container');
+
+// Generate reviews
+reviews.forEach(review => {
+  const reviewDiv = document.createElement('div');
+  reviewDiv.className = "bg-white rounded-xl shadow-md overflow-hidden transition hover:shadow-lg";
+
+  reviewDiv.innerHTML = `
+    <button class="w-full flex items-center justify-between p-4 cursor-pointer focus:outline-none">
+      <div class="flex items-center gap-4">
+        <img src="${review.profile}" alt="${review.name}" class="w-12 h-12 rounded-full border border-gray-300">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">${review.name}</h3>
+          <div class="flex text-yellow-400">
+            ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+          </div>
+        </div>
+      </div>
+      <svg class="w-6 h-6 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+    <div class="review-text p-4 text-gray-700 hidden border-t border-gray-200">
+      ${review.text}
+    </div>
+  `;
+
+  // Toggle review text on click
+  const button = reviewDiv.querySelector('button');
+  const textDiv = reviewDiv.querySelector('.review-text');
+  const icon = reviewDiv.querySelector('svg');
+
+  button.addEventListener('click', () => {
+    textDiv.classList.toggle('hidden');
+    icon.classList.toggle('rotate-180');
+  });
+
+  container.appendChild(reviewDiv);
+});
+</script>
+
+</body>
+</html>
